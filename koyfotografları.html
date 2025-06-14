@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Türkobası Köyü - Fotoğraflar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e7d32;
+      padding: 15px;
+      color: white;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .controls button:hover {
+      background-color: #1b5e20;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      text-decoration: none;
+      color: #2e7d32;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .gallery img {
+        height: auto;
+      }
+
+      .controls button {
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+
+      header h1 {
+        font-size: 1.4em;
+      }
+
+      .back-link a {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Türkobası Köyü - Fotoğraflar</h1>
+  </header>
+
+  <div class="gallery">
+    <img src="koy1.webp" alt="Fotoğraf 1" onclick="openLightbox(0)">
+    <img src="koy2.webp" alt="Fotoğraf 2" onclick="openLightbox(1)">
+    <img src="koy3.webp" alt="Fotoğraf 3" onclick="openLightbox(2)">
+    <img src="koy4.webp" alt="Fotoğraf 4" onclick="openLightbox(3)">
+    <img src="koy5.webp" alt="Fotoğraf 5" onclick="openLightbox(4)">
+    <img src="koy6.webp" alt="Fotoğraf 6" onclick="openLightbox(5)">
+    <img src="koy7.webp" alt="Fotoğraf 7" onclick="openLightbox(6)">
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="Büyük Görsel">
+    <div class="controls">
+      <button onclick="prevImage()">← Önceki</button>
+      <button onclick="nextImage()">Sonraki →</button>
+      <button onclick="closeLightbox()">Kapat ✖</button>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="koy.html">← Ana Sayfaya Dön</a>
+  </div>
+
+  <footer>
+    <p>© 2025 Türkobası Köyü</p>
+  </footer>
+
+  <script>
+    const images = [
+      "koy1.webp", "koy2.webp", "koy3.webp",
+      "koy4.webp", "koy5.webp", "koy6.webp", "koy7.webp"
+    ];
+    let currentIndex = 0;
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = images[currentIndex];
+      lightbox.classList.add("active");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      lightboxImg.src = images[currentIndex];
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      lightboxImg.src = images[currentIndex];
+    }
+
+    // ESC ve yön tuşları
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeLightbox();
+      } else if (e.key === "ArrowRight") {
+        nextImage();
+      } else if (e.key === "ArrowLeft") {
+        prevImage();
+      }
+    });
+  </script>
+
+</body>
+</html>

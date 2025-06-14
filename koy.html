@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Türkobası Köyü - Ana Sayfa</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Hafif degrade ve yumuşak renk geçişi */
+      background: linear-gradient(135deg, #e0f2f1, #a7d7c5);
+      color: #2e3a33;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ÜSTTEKİ BAĞIMSIZ BAŞLIK */
+    .page-title {
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      color: #fafafa;
+      text-align: center;
+      padding: 28px 15px;
+      font-size: 2.7em;
+      font-weight: 900;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      text-transform: uppercase;
+      font-family: 'Segoe UI Black', 'Segoe UI', sans-serif;
+      user-select: none;
+    }
+
+    /* Ana görsel kahraman bölümü */
+    .hero {
+      background: url('Koy.webp') no-repeat center center;
+      background-size: cover;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #f1f8f7;
+      text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.75);
+      border-radius: 12px;
+      margin: 25px auto;
+      max-width: 900px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.4em;
+      background-color: rgba(34, 70, 30, 0.6);
+      padding: 18px 30px;
+      border-radius: 14px;
+      user-select: none;
+      font-weight: 700;
+    }
+
+    /* İçerik bölümü */
+    .content {
+      padding: 40px 25px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(46, 125, 50, 0.15);
+    }
+
+    .content h2 {
+      color: #2e7d32;
+      font-size: 1.7em;
+      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .content p {
+      font-size: 1.05em;
+      line-height: 1.6;
+      color: #34493a;
+      margin-bottom: 35px;
+      user-select: text;
+    }
+
+    /* Harita konteyneri */
+    .map-container {
+      margin: 35px auto;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border: 3px solid #66bb6a;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(102, 187, 106, 0.35);
+      overflow: hidden;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    /* Video konteyneri */
+    .video-container {
+      margin: 35px auto;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2e7d32;
+      color: #e0f2f1;
+      text-align: center;
+      padding: 18px 10px;
+      margin-top: 50px;
+      font-size: 0.95em;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      user-select: none;
+      box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Navbar konteyner */
+    .nav-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 18px;
+      background: #2e7d32;
+      justify-content: center;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 20px auto 0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+    }
+
+    nav {
+      margin: 0;
+    }
+
+    nav a {
+      display: inline-block;
+      background-color: #81c784;
+      color: #1b5e20;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05em;
+      padding: 10px 16px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: background-color 0.35s ease, color 0.35s ease, transform 0.25s ease;
+      user-select: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: #4caf50;
+      color: #fafafa;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
+    }
+
+    /* Responsive ayarlar */
+    @media (max-width: 600px) {
+      .hero {
+        height: 200px;
+      }
+
+      .hero h1 {
+        font-size: 1.8em;
+        padding: 12px 20px;
+      }
+
+      nav a {
+        font-size: 0.95em;
+        padding: 8px 14px;
+      }
+
+      .content h2 {
+        font-size: 1.4em;
+      }
+
+      .page-title {
+        font-size: 2em;
+        padding: 22px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bağımsız büyük başlık -->
+  <div class="page-title">Türkobası Köyü</div>
+
+  <div class="nav-container">
+    <nav>
+      <a href="muhtar.html">Muhtar</a>
+    </nav>
+    <nav>
+      <a href="koytarihi.html">Köy Tarihi</a>
+    </nav>
+    <nav>
+      <a href="koyfotografları.html">Köy Fotoğrafları</a>
+    </nav>
+  </div>
+
+  <div class="hero"></div>
+
+  <div class="content">
+    <h2>Hoş Geldiniz!</h2>
+    <p>Türkobası, Ankara ilinin Sincan ilçesine bağlı bir mahalledir.</p>
+
+    <h2>Tanıtım Videosu</h2>
+    <div class="video-container">
+      <iframe src="tanitimvideo.mp4" title="Köy Tanıtımı" allowfullscreen></iframe>
+    </div>
+
+    <h2>Köyün Konumu</h2>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.6278735644366!2d32.4110414152496!3d39.94893787941708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d34c65a8abf21b%3A0x2e9e6d5ec7b7c7bb!2sTürkobası%2C%2006930%20Sincan%2FAnkara!5e0!3m2!1str!2str!4v1718389700000!5m2!1str!2str" 
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Türkobası Köyü</p>
+  </footer>
+
+</body>
+</html>
