@@ -66,6 +66,18 @@
       background-color: #2e7d32;
     }
 
+    form .cancel-btn {
+      background-color: #888;
+      margin-top: 10px;
+      width: auto;
+      padding: 10px 20px;
+      display: none;
+    }
+
+    form .cancel-btn:hover {
+      background-color: #555;
+    }
+
     #yorumListesi div {
       background: #e8f5e9;
       border-left: 5px solid #2e7d32;
@@ -76,10 +88,34 @@
       color: #2e3a33;
       text-align: left;
       word-wrap: break-word;
+      position: relative;
     }
 
-    #yorumListesi div small {
-      color: #555;
+    #yorumListesi div button {
+      position: absolute;
+      top: 10px;
+      font-weight: bold;
+      padding: 5px 8px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.2s ease;
+      background: transparent;
+    }
+
+    #yorumListesi div button.delete-btn {
+      right: 10px;
+      color: #b71c1c;
+    }
+
+    #yorumListesi div button.edit-btn {
+      right: 70px;
+      color: #2e7d32;
+    }
+
+    #yorumListesi div button:hover {
+      background-color: #c8e6c9;
     }
 
     a.back-link {
@@ -118,6 +154,10 @@
         font-size: 0.95em;
         margin-top: 15px;
       }
+      #yorumListesi div button {
+        font-size: 0.8em;
+        padding: 3px 6px;
+      }
     }
   </style>
 </head>
@@ -127,7 +167,8 @@
   <form id="yorumForm" onsubmit="yorumEkle(event)">
     <input type="text" id="isim" placeholder="Adınız" required />
     <textarea id="yorum" placeholder="Yorumunuz" required rows="4"></textarea>
-    <button type="submit">Gönder</button>
+    <button type="submit" id="submitBtn">Gönder</button>
+    <button type="button" class="cancel-btn" id="cancelBtn" onclick="iptalEt()">İptal</button>
   </form>
 
   <div id="yorumListesi"></div>
@@ -136,26 +177,87 @@
 </main>
 
 <script>
+  let duzenlenenIndex = null;
+
   function yorumEkle(e) {
     e.preventDefault();
     const isim = document.getElementById('isim').value.trim();
     const yorum = document.getElementById('yorum').value.trim();
-    if (isim && yorum) {
-      const yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+    if (!isim || !yorum) return;
+
+    let yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+
+    if (duzenlenenIndex === null) {
+      // Yeni yorum ekle
       yorumlar.push({ isim, yorum, tarih: new Date().toLocaleString('tr-TR') });
-      localStorage.setItem('yorumlar', JSON.stringify(yorumlar));
-      document.getElementById('yorumForm').reset();
-      yorumlariGoster();
+    } else {
+      // Yorum güncelle
+      yorumlar[duzenlenenIndex].isim = isim;
+      yorumlar[duzenlenenIndex].yorum = yorum;
+      yorumlar[duzenlenenIndex].tarih = new Date().toLocaleString('tr-TR');
+      duzenlenenIndex = null;
+      document.getElementById('submitBtn').textContent = "Gönder";
+      document.getElementById('cancelBtn').style.display = "none";
     }
+
+    localStorage.setItem('yorumlar', JSON.stringify(yorumlar));
+    document.getElementById('yorumForm').reset();
+    yorumlariGoster();
   }
 
   function yorumlariGoster() {
     const yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
     const yorumListesi = document.getElementById('yorumListesi');
-    yorumListesi.innerHTML = yorumlar.reverse().map(y =>
-      `<div><strong>${y.isim}</strong> <small>(${y.tarih})</small><br/>
-       <p>${y.yorum}</p></div>`
-    ).join('');
+    yorumListesi.innerHTML = yorumlar
+      .map((y, i) => `
+        <div>
+          <strong>${escapeHtml(y.isim)}</strong> <small>(${y.tarih})</small><br/>
+          <p>${escapeHtml(y.yorum)}</p>
+          <button class="edit-btn" onclick="yorumDuzenle(${i})" title="Düzenle">✏️ Düzenle</button>
+          <button class="delete-btn" onclick="yorumSil(${i})" title="Sil">🗑️ Sil</button>
+        </div>`)
+      .reverse()
+      .join('');
+  }
+
+  function yorumSil(index) {
+    if (!confirm("Bu yorumu silmek istediğinizden emin misiniz?")) return;
+    let yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+    yorumlar.splice(index, 1);
+    localStorage.setItem('yorumlar', JSON.stringify(yorumlar));
+    if(duzenlenenIndex === index) {
+      iptalEt();
+    }
+    yorumlariGoster();
+  }
+
+  function yorumDuzenle(index) {
+    const yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+    const y = yorumlar[index];
+    document.getElementById('isim').value = y.isim;
+    document.getElementById('yorum').value = y.yorum;
+    duzenlenenIndex = index;
+    document.getElementById('submitBtn').textContent = "Güncelle";
+    document.getElementById('cancelBtn').style.display = "inline-block";
+  }
+
+  function iptalEt() {
+    duzenlenenIndex = null;
+    document.getElementById('yorumForm').reset();
+    document.getElementById('submitBtn').textContent = "Gönder";
+    document.getElementById('cancelBtn').style.display = "none";
+  }
+
+  // Basit XSS koruması
+  function escapeHtml(text) {
+    const map = {
+      '&': "&amp;",
+      '<': "&lt;",
+      '>': "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
   }
 
   window.onload = yorumlariGoster;
