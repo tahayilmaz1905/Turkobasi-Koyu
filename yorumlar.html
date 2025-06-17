@@ -45,6 +45,15 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
       font-family: inherit;
+      resize: vertical;
+      min-height: 40px;
+      transition: border-color 0.3s ease;
+    }
+
+    form input:focus, form textarea:focus {
+      outline: none;
+      border-color: #388e3c;
+      box-shadow: 0 0 5px rgba(56, 142, 60, 0.5);
     }
 
     form button {
@@ -60,10 +69,15 @@
       transition: background-color 0.3s ease;
       width: 100%;
       box-sizing: border-box;
+      user-select: none;
     }
 
     form button:hover {
       background-color: #2e7d32;
+    }
+
+    form button:active {
+      background-color: #1b5e20;
     }
 
     form .cancel-btn {
@@ -72,10 +86,15 @@
       width: auto;
       padding: 10px 20px;
       display: none;
+      user-select: none;
     }
 
     form .cancel-btn:hover {
       background-color: #555;
+    }
+
+    form .cancel-btn:active {
+      background-color: #333;
     }
 
     #yorumListesi div {
@@ -102,6 +121,7 @@
       font-size: 0.9em;
       transition: background-color 0.2s ease;
       background: transparent;
+      user-select: none;
     }
 
     #yorumListesi div button.delete-btn {
@@ -118,6 +138,10 @@
       background-color: #c8e6c9;
     }
 
+    #yorumListesi div button:active {
+      background-color: #a5d6a7;
+    }
+
     a.back-link {
       display: inline-block;
       margin-top: 20px;
@@ -126,6 +150,7 @@
       text-decoration: none;
       border-bottom: 2px solid transparent;
       transition: border-color 0.3s;
+      user-select: none;
     }
 
     a.back-link:hover {
@@ -143,20 +168,20 @@
         margin: 15px auto;
       }
       form input, form textarea {
-        font-size: 0.95em;
-        padding: 9px;
+        font-size: 1em;
+        padding: 12px;
       }
       form button {
-        padding: 12px;
-        font-size: 1em;
+        padding: 14px;
+        font-size: 1.1em;
       }
       a.back-link {
-        font-size: 0.95em;
-        margin-top: 15px;
+        font-size: 1em;
+        margin-top: 20px;
       }
       #yorumListesi div button {
-        font-size: 0.8em;
-        padding: 3px 6px;
+        font-size: 0.9em;
+        padding: 5px 10px;
       }
     }
   </style>
@@ -165,7 +190,7 @@
 <header>Ziyaretçi Yorumları</header>
 <main>
   <form id="yorumForm" onsubmit="yorumEkle(event)">
-    <input type="text" id="isim" placeholder="Adınız" required />
+    <input type="text" id="isim" placeholder="Adınız" required autocomplete="off" />
     <textarea id="yorum" placeholder="Yorumunuz" required rows="4"></textarea>
     <button type="submit" id="submitBtn">Gönder</button>
     <button type="button" class="cancel-btn" id="cancelBtn" onclick="iptalEt()">İptal</button>
@@ -239,6 +264,8 @@
     duzenlenenIndex = index;
     document.getElementById('submitBtn').textContent = "Güncelle";
     document.getElementById('cancelBtn').style.display = "inline-block";
+    // Otomatik textarea yüksekliğini ayarla
+    autoGrowTextarea();
   }
 
   function iptalEt() {
@@ -260,7 +287,18 @@
     return text.replace(/[&<>"']/g, m => map[m]);
   }
 
-  window.onload = yorumlariGoster;
+  // Textarea otomatik yükseklik
+  const yorumTextarea = document.getElementById('yorum');
+  yorumTextarea.addEventListener('input', autoGrowTextarea);
+  function autoGrowTextarea() {
+    yorumTextarea.style.height = 'auto';
+    yorumTextarea.style.height = (yorumTextarea.scrollHeight) + 'px';
+  }
+
+  window.onload = () => {
+    yorumlariGoster();
+    autoGrowTextarea();
+  };
 </script>
 </body>
 </html>
