@@ -8,70 +8,72 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
       color: #333;
+      background: linear-gradient(135deg, #d7f2e3, #b3e5fc);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #2e7d32;
+      background: linear-gradient(to right, #388e3c, #66bb6a);
       color: white;
       padding: 15px 20px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.8em;
       font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    nav {
-      background: #4caf50;
-      padding: 10px 20px;
-      text-align: left;
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+      overflow: hidden;
+      border: 2px solid white;
+      background: white;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1em;
-      padding: 8px 15px;
-      background-color: #81c784;
-      border-radius: 12px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: #388e3c;
-      color: white;
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     main {
       max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
     h2 {
       color: #2e7d32;
       margin-bottom: 10px;
-      text-align: center;
     }
 
     p {
       font-size: 1.1em;
       line-height: 1.6;
       margin-bottom: 30px;
-      text-align: center;
     }
 
     .iframe-container {
       position: relative;
       width: 100%;
-      padding-bottom: 75%; /* 4:3 oranı */
+      padding-bottom: 75%;
       height: 0;
       overflow: hidden;
       border: 2px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
     }
 
     .iframe-container iframe {
@@ -82,45 +84,113 @@
       border: 0;
     }
 
+    /* Galeri için basit stil */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .gallery img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .back-button {
+      margin: 25px 0;
+    }
+
+    .back-button a {
+      display: inline-block;
+      background: linear-gradient(to right, #4caf50, #81c784);
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background: #388e3c;
+    }
+
     footer {
-      background-color: #2e7d32;
+      background: linear-gradient(to right, #2e7d32, #4caf50);
       color: white;
       text-align: center;
       padding: 15px;
-      margin-top: 50px;
+      font-size: 0.95em;
+      margin-top: auto;
     }
 
-    /* MOBİL UYUMLULUK */
+    /* Lightbox stilleri */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
     @media (max-width: 600px) {
       header {
         font-size: 1.4em;
-        padding: 12px 10px;
+        flex-direction: column;
+        padding: 10px;
+        text-align: center;
       }
 
-      nav a {
-        display: inline-block;
-        font-size: 1em;
-        padding: 6px 12px;
+      .logo {
+        margin: 0 0 10px 0;
       }
 
-      p {
-        font-size: 1em;
-        padding: 0 5px;
+      main {
+        margin: 20px 10px;
+        padding: 15px;
       }
 
       .iframe-container {
-        padding-bottom: 65%; /* Mobilde biraz daha dar oran */
+        padding-bottom: 65%;
+      }
+
+      .gallery img {
+        width: 90px;
+        height: 90px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>Türkobası Köyü - Köy Tarihi</header>
-
-  <nav>
-    <a href="index.html">Ana Sayfa</a>
-  </nav>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Köy Logosu">
+    </div>
+    Türkobası Köyü - Köy Tarihi
+  </header>
 
   <main>
     <h2>Köyümüzün Tarihi</h2>
@@ -128,17 +198,47 @@
       Türkobası Köyü'nün tarihini ve kültürel mirasını aşağıdaki kaynaktan detaylı şekilde inceleyebilirsiniz.
     </p>
 
-    <div class="iframe-container">
-      <iframe src="https://www.sincan.bel.tr/sincan-tarih-kultur-atlasi/index.html#p=694" 
-              title="Sincan Tarih Kültür Atlası - Türkobası Köyü" 
-              allowfullscreen
-              loading="lazy"></iframe>
+    <div class="gallery">
+      <img src="turkobasitarihi3.png" alt="Türkobası Köyü Görsel 1" />
+      <img src="turkobasitarihi1.png" alt="Türkobası Köyü Görsel 2" />
+      <img src="turkobasitarihi2.png" alt="Türkobası Köyü Görsel 3" />
+    </div>
+
+    
+    <div class="back-button">
+      <a href="koy.html">Ana Sayfa</a>
     </div>
   </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Büyütülmüş Resim" id="lightbox-img" />
+  </div>
 
   <footer>
     <p>© 2025 Türkobası Köyü</p>
   </footer>
 
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const galleryImages = document.querySelectorAll('.gallery img');
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    });
+  </script>
+
 </body>
 </html>
+
