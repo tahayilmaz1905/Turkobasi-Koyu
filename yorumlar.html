@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ziyaretçi Yorumları - Türkobası Köyü</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #a7d7c5, #e0f2f1);
+      margin: 0;
+      padding: 0 10px 40px;
+      color: #2e3a33;
+    }
+
+    header {
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 2em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    main {
+      max-width: 700px;
+      margin: 25px auto;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(46, 125, 50, 0.15);
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    form button {
+      margin-top: 15px;
+      background-color: #388e3c;
+      border: none;
+      color: white;
+      padding: 12px 22px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    form button:hover {
+      background-color: #2e7d32;
+    }
+
+    #yorumListesi div {
+      background: #e8f5e9;
+      border-left: 5px solid #2e7d32;
+      margin-top: 18px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      color: #2e3a33;
+      text-align: left;
+      word-wrap: break-word;
+    }
+
+    #yorumListesi div small {
+      color: #555;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-weight: 700;
+      color: #2e7d32;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    a.back-link:hover {
+      border-color: #2e7d32;
+    }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.5em;
+        padding: 15px 10px;
+      }
+      main {
+        padding: 15px 20px;
+        margin: 15px auto;
+      }
+      form input, form textarea {
+        font-size: 0.95em;
+        padding: 9px;
+      }
+      form button {
+        padding: 12px;
+        font-size: 1em;
+      }
+      a.back-link {
+        font-size: 0.95em;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>Ziyaretçi Yorumları</header>
+<main>
+  <form id="yorumForm" onsubmit="yorumEkle(event)">
+    <input type="text" id="isim" placeholder="Adınız" required />
+    <textarea id="yorum" placeholder="Yorumunuz" required rows="4"></textarea>
+    <button type="submit">Gönder</button>
+  </form>
+
+  <div id="yorumListesi"></div>
+
+  <a href="koy.html" class="back-link">← Ana Sayfaya Dön</a>
+</main>
+
+<script>
+  function yorumEkle(e) {
+    e.preventDefault();
+    const isim = document.getElementById('isim').value.trim();
+    const yorum = document.getElementById('yorum').value.trim();
+    if (isim && yorum) {
+      const yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+      yorumlar.push({ isim, yorum, tarih: new Date().toLocaleString('tr-TR') });
+      localStorage.setItem('yorumlar', JSON.stringify(yorumlar));
+      document.getElementById('yorumForm').reset();
+      yorumlariGoster();
+    }
+  }
+
+  function yorumlariGoster() {
+    const yorumlar = JSON.parse(localStorage.getItem('yorumlar')) || [];
+    const yorumListesi = document.getElementById('yorumListesi');
+    yorumListesi.innerHTML = yorumlar.reverse().map(y =>
+      `<div><strong>${y.isim}</strong> <small>(${y.tarih})</small><br/>
+       <p>${y.yorum}</p></div>`
+    ).join('');
+  }
+
+  window.onload = yorumlariGoster;
+</script>
+</body>
+</html>
