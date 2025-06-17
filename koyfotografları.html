@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Türkobası Köyü - Fotoğraflar</title>
   <style>
     body {
@@ -10,6 +10,7 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
       color: #333;
+      overflow-x: hidden;
     }
 
     header {
@@ -17,6 +18,7 @@
       padding: 15px;
       color: white;
       text-align: center;
+      user-select: none;
     }
 
     .gallery {
@@ -37,35 +39,42 @@
       transition: transform 0.3s ease;
       cursor: pointer;
     }
-
-    .gallery img:hover {
+    .gallery img:hover,
+    .gallery img:focus {
       transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.7);
     }
 
     .lightbox {
       display: none;
       position: fixed;
-      z-index: 999;
+      z-index: 9999;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
       justify-content: center;
       align-items: center;
       flex-direction: column;
       padding: 10px;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .lightbox.active {
+      display: flex;
     }
 
     .lightbox img {
-      max-width: 90%;
-      max-height: 80%;
+      max-width: 90vw;
+      max-height: 80vh;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      user-select: none;
+      transition: transform 0.3s ease;
     }
-
-    .lightbox.active {
-      display: flex;
+    .lightbox img:focus {
+      outline: 2px solid #66bb6a;
     }
 
     .controls {
@@ -77,6 +86,7 @@
     }
 
     .controls button {
+      type: button;
       padding: 10px 20px;
       font-size: 18px;
       background-color: #2e7d32;
@@ -85,15 +95,20 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      user-select: none;
     }
 
-    .controls button:hover {
+    .controls button:hover,
+    .controls button:focus {
       background-color: #1b5e20;
+      outline: none;
+      box-shadow: 0 0 8px #1b5e20;
     }
 
     .back-link {
       text-align: center;
       margin-top: 20px;
+      user-select: none;
     }
 
     .back-link a {
@@ -101,10 +116,14 @@
       color: #2e7d32;
       font-weight: bold;
       font-size: 1.1em;
+      transition: color 0.3s ease;
     }
 
-    .back-link a:hover {
+    .back-link a:hover,
+    .back-link a:focus {
+      color: #1b5e20;
       text-decoration: underline;
+      outline: none;
     }
 
     footer {
@@ -113,6 +132,7 @@
       text-align: center;
       padding: 15px;
       margin-top: 40px;
+      user-select: none;
     }
 
     /* Mobil uyumluluk */
@@ -122,23 +142,28 @@
         padding: 10px;
         gap: 10px;
       }
-
       .gallery img {
         height: auto;
       }
-
       .controls button {
         font-size: 16px;
         padding: 8px 16px;
       }
-
       header h1 {
         font-size: 1.4em;
       }
-
       .back-link a {
         font-size: 1em;
       }
+      .lightbox img {
+        max-width: 95vw;
+        max-height: 75vh;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
@@ -148,27 +173,29 @@
     <h1>Türkobası Köyü - Fotoğraflar</h1>
   </header>
 
-  <div class="gallery">
-    <img src="koy1.webp" alt="Fotoğraf 1" onclick="openLightbox(0)">
-    <img src="koy2.webp" alt="Fotoğraf 2" onclick="openLightbox(1)">
-    <img src="koy3.webp" alt="Fotoğraf 3" onclick="openLightbox(2)">
-    <img src="koy4.webp" alt="Fotoğraf 4" onclick="openLightbox(3)">
-    <img src="koy5.webp" alt="Fotoğraf 5" onclick="openLightbox(4)">
-    <img src="koy6.webp" alt="Fotoğraf 6" onclick="openLightbox(5)">
-    <img src="koy7.webp" alt="Fotoğraf 7" onclick="openLightbox(6)">
-  </div>
+  <main>
+    <section class="gallery" aria-label="Fotoğraf galerisi">
+      <img src="koy1.webp" alt="Köyün genel görünümü" tabindex="0" role="button" aria-pressed="false" aria-label="Köyün genel görünümü, büyütmek için tıklayın" onclick="openLightbox(0)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(0)">
+      <img src="koy2.webp" alt="Köydeki tarihi çeşme" tabindex="0" role="button" aria-pressed="false" aria-label="Köydeki tarihi çeşme, büyütmek için tıklayın" onclick="openLightbox(1)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(1)">
+      <img src="koy3.webp" alt="Köy meydanından bir görünüm" tabindex="0" role="button" aria-pressed="false" aria-label="Köy meydanından bir görünüm, büyütmek için tıklayın" onclick="openLightbox(2)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(2)">
+      <img src="koy4.webp" alt="Köyde yürüyüş yolları" tabindex="0" role="button" aria-pressed="false" aria-label="Köyde yürüyüş yolları, büyütmek için tıklayın" onclick="openLightbox(3)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(3)">
+      <img src="koy5.webp" alt="Köydeki çocuk oyun alanı" tabindex="0" role="button" aria-pressed="false" aria-label="Köydeki çocuk oyun alanı, büyütmek için tıklayın" onclick="openLightbox(4)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(4)">
+      <img src="koy6.webp" alt="Köyde doğal bir manzara" tabindex="0" role="button" aria-pressed="false" aria-label="Köyde doğal bir manzara, büyütmek için tıklayın" onclick="openLightbox(5)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(5)">
+      <img src="koy7.webp" alt="Köyde akşam manzarası" tabindex="0" role="button" aria-pressed="false" aria-label="Köyde akşam manzarası, büyütmek için tıklayın" onclick="openLightbox(6)" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox(6)">
+    </section>
+  </main>
 
-  <div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="" alt="Büyük Görsel">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Büyütülmüş fotoğraf görüntüleyici" tabindex="0" onclick="if(event.target === this) closeLightbox()">
+    <img id="lightbox-img" src="" alt="" tabindex="0" />
     <div class="controls">
-      <button onclick="prevImage()">← Önceki</button>
-      <button onclick="nextImage()">Sonraki →</button>
-      <button onclick="closeLightbox()">Kapat ✖</button>
+      <button type="button" onclick="prevImage()" aria-label="Önceki fotoğraf">← Önceki</button>
+      <button type="button" onclick="nextImage()" aria-label="Sonraki fotoğraf">Sonraki →</button>
+      <button type="button" onclick="closeLightbox()" aria-label="Kapat fotoğraf görüntüleyici">Kapat ✖</button>
     </div>
   </div>
 
   <div class="back-link">
-    <a href="index.html">← Ana Sayfaya Dön</a>
+    <a href="koy.html" tabindex="0">← Ana Sayfaya Dön</a>
   </div>
 
   <footer>
@@ -177,8 +204,13 @@
 
   <script>
     const images = [
-      "koy1.webp", "koy2.webp", "koy3.webp",
-      "koy4.webp", "koy5.webp", "koy6.webp", "koy7.webp"
+      {src: "koy1.webp", alt: "Köyün genel görünümü"},
+      {src: "koy2.webp", alt: "Köydeki tarihi çeşme"},
+      {src: "koy3.webp", alt: "Köy meydanından bir görünüm"},
+      {src: "koy4.webp", alt: "Köyde yürüyüş yolları"},
+      {src: "koy5.webp", alt: "Köydeki çocuk oyun alanı"},
+      {src: "koy6.webp", alt: "Köyde doğal bir manzara"},
+      {src: "koy7.webp", alt: "Köyde akşam manzarası"}
     ];
     let currentIndex = 0;
 
@@ -187,32 +219,49 @@
 
     function openLightbox(index) {
       currentIndex = index;
-      lightboxImg.src = images[currentIndex];
+      lightboxImg.src = images[currentIndex].src;
+      lightboxImg.alt = images[currentIndex].alt;
       lightbox.classList.add("active");
+      document.body.style.overflow = 'hidden'; // scroll lock
+      lightbox.focus();
     }
 
     function closeLightbox() {
       lightbox.classList.remove("active");
+      lightboxImg.src = "";
+      lightboxImg.alt = "";
+      document.body.style.overflow = ''; // scroll unlock
     }
 
     function nextImage() {
       currentIndex = (currentIndex + 1) % images.length;
-      lightboxImg.src = images[currentIndex];
+      updateLightboxImage();
     }
 
     function prevImage() {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
-      lightboxImg.src = images[currentIndex];
+      updateLightboxImage();
     }
 
-    // ESC ve yön tuşları
+    function updateLightboxImage() {
+      lightboxImg.src = images[currentIndex].src;
+      lightboxImg.alt = images[currentIndex].alt;
+      lightbox.focus();
+    }
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        closeLightbox();
-      } else if (e.key === "ArrowRight") {
-        nextImage();
-      } else if (e.key === "ArrowLeft") {
-        prevImage();
+      if (!lightbox.classList.contains("active")) return;
+
+      switch (e.key) {
+        case "Escape":
+          closeLightbox();
+          break;
+        case "ArrowRight":
+          nextImage();
+          break;
+        case "ArrowLeft":
+          prevImage();
+          break;
       }
     });
   </script>
