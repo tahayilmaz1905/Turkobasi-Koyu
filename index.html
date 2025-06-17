@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Türkobası Köyü - Ana Sayfa</title>
+  <title>Türkobası Köyü</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,238 +12,278 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      /* Hafif degrade ve yumuşak renk geçişi */
-      background: linear-gradient(135deg, #e0f2f1, #a7d7c5);
+      background: #f5f9f8;
       color: #2e3a33;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* ÜSTTEKİ BAĞIMSIZ BAŞLIK */
-    .page-title {
+    header {
+      width: 100%;
       background: linear-gradient(90deg, #2e7d32, #66bb6a);
       color: #fafafa;
-      text-align: center;
-      padding: 28px 15px;
-      font-size: 2.7em;
       font-weight: 900;
-      letter-spacing: 2px;
+      font-size: 2rem;
+      text-align: center;
+      padding: 18px 0;
       box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-      text-transform: uppercase;
-      font-family: 'Segoe UI Black', 'Segoe UI', sans-serif;
-      user-select: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
     }
 
-    /* Ana görsel kahraman bölümü */
-    .hero {
-      background: url('Koy.webp') no-repeat center center;
-      background-size: cover;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #f1f8f7;
-      text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.75);
-      border-radius: 12px;
-      margin: 25px auto;
-      max-width: 900px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero h1 {
-      font-size: 2.4em;
-      background-color: rgba(34, 70, 30, 0.6);
-      padding: 18px 30px;
-      border-radius: 14px;
-      user-select: none;
-      font-weight: 700;
-    }
-
-    /* İçerik bölümü */
-    .content {
-      padding: 40px 25px;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(46, 125, 50, 0.15);
-    }
-
-    .content h2 {
+    .menu-toggle {
+      position: fixed;
+      top: 16px;
+      left: 20px;
+      font-size: 24px;
+      background: #e8f5e9;
       color: #2e7d32;
-      font-size: 1.7em;
-      margin-bottom: 10px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+      user-select: none;
     }
 
-    .content p {
-      font-size: 1.05em;
-      line-height: 1.6;
-      color: #34493a;
-      margin-bottom: 35px;
-      user-select: text;
+    .menu-toggle:hover {
+      background: #c8e6c9;
     }
 
-    /* Harita konteyneri */
-    .map-container {
-      margin: 35px auto;
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      border: 3px solid #66bb6a;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(102, 187, 106, 0.35);
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background-color: #2e7d32;
+      padding-top: 70px;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      z-index: 999;
+      overflow-y: auto;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #e0f2f1;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.3s;
+      font-size: 1.1em;
+    }
+
+    .sidebar a:hover {
+      background-color: #388e3c;
+    }
+
+    main {
+      margin-top: 72px;
+      padding: 0;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 80vh;
       overflow: hidden;
     }
 
-    .map-container iframe {
+    .hero-image img {
       width: 100%;
       height: 100%;
-      border: 0;
-      border-radius: 12px;
+      object-fit: cover;
+      display: block;
     }
 
-    /* Video konteyneri */
+    .video-section {
+      background-color: #ffffff;
+      margin: 40px auto;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .video-section h2 {
+      margin-bottom: 20px;
+    }
+
     .video-container {
-      margin: 35px auto;
-      max-width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 12px;
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
       overflow: hidden;
+      border-radius: 12px;
       box-shadow: 0 6px 15px rgba(46, 125, 50, 0.3);
+      background: #000;
     }
 
+    .video-container video,
     .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       border: none;
       border-radius: 12px;
     }
 
-    /* Footer */
     footer {
       background-color: #2e7d32;
-      color: #e0f2f1;
+      color: #e0f1f1;
       text-align: center;
       padding: 18px 10px;
-      margin-top: 50px;
       font-size: 0.95em;
       font-weight: 600;
       letter-spacing: 0.03em;
-      user-select: none;
+      margin-top: 50px;
       box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
     }
 
-    /* Navbar konteyner */
-    .nav-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 12px 18px;
-      background: #2e7d32;
-      justify-content: center;
-      border-radius: 12px;
-      max-width: 900px;
-      margin: 20px auto 0;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
-    }
-
-    nav {
-      margin: 0;
-    }
-
-    nav a {
-      display: inline-block;
-      background-color: #81c784;
-      color: #1b5e20;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.05em;
-      padding: 10px 16px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      transition: background-color 0.35s ease, color 0.35s ease, transform 0.25s ease;
-      user-select: none;
-    }
-
-    nav a:hover,
-    nav a:focus {
-      background-color: #4caf50;
-      color: #fafafa;
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
-    }
-
-    /* Responsive ayarlar */
-    @media (max-width: 600px) {
-      .hero {
-        height: 200px;
+    /* Responsive Başlangıç */
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.6rem;
+        padding: 15px 0;
       }
 
-      .hero h1 {
-        font-size: 1.8em;
-        padding: 12px 20px;
+      .menu-toggle {
+        font-size: 22px;
+        top: 14px;
+        left: 15px;
+        padding: 7px 11px;
       }
 
-      nav a {
-        font-size: 0.95em;
-        padding: 8px 14px;
+      .sidebar {
+        width: 70vw;
+        left: -70vw;
+        padding-top: 60px;
       }
 
-      .content h2 {
-        font-size: 1.4em;
+      .sidebar.show {
+        left: 0;
       }
 
-      .page-title {
-        font-size: 2em;
-        padding: 22px 12px;
+      main {
+        margin-top: 62px;
+      }
+
+      .hero-image {
+        height: 50vh;
+      }
+
+      .video-section {
+        margin: 20px 10px;
+        max-width: 90vw;
+        padding: 15px;
+      }
+
+      .video-section h2 {
+        font-size: 1.3rem;
       }
     }
+
+    @media (max-width: 400px) {
+      header {
+        font-size: 1.3rem;
+        padding: 12px 0;
+      }
+
+      .menu-toggle {
+        font-size: 20px;
+        top: 12px;
+        left: 10px;
+        padding: 6px 10px;
+      }
+
+      .sidebar {
+        width: 80vw;
+        left: -80vw;
+        padding-top: 50px;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      main {
+        margin-top: 55px;
+      }
+
+      .hero-image {
+        height: 40vh;
+      }
+
+      .video-section {
+        margin: 15px 8px;
+        max-width: 95vw;
+        padding: 12px;
+      }
+
+      .video-section h2 {
+        font-size: 1.1rem;
+      }
+    }
+    /* Responsive Bitiş */
   </style>
 </head>
 <body>
 
-  <!-- Bağımsız büyük başlık -->
-  <div class="page-title">Türkobası Köyü</div>
+<header>Türkobası Köyü</header>
 
-  <div class="nav-container">
-    <nav>
-      <a href="muhtar.html">Muhtar</a>
-    </nav>
-    <nav>
-      <a href="koytarihi.html">Köy Tarihi</a>
-    </nav>
-    <nav>
-      <a href="koyfotografları.html">Köy Fotoğrafları</a>
-    </nav>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<div class="sidebar" id="sidebar">
+  <a href="muhtar.html">👤 Muhtar</a>
+  <a href="koytarihi.html">📜 Köy Tarihi</a>
+  <a href="koyfotografları.html">🖼️ Köy Fotoğrafları</a>
+  <a href="yorumlar.html">🗣️ Ziyaretçi Yorumları</a>
+  <a href="koykonumu.html">📍 Köy Konumu</a>
+</div>
+
+<main>
+  <div class="hero-image">
+    <img src="Koy.webp" alt="Türkobası Köyü">
   </div>
 
-  <div class="hero"></div>
-
-  <div class="content">
-    <h2>Hoş Geldiniz!</h2>
-    <p>Türkobası, Ankara ilinin Sincan ilçesine bağlı bir mahalledir.</p>
-
+  <div class="video-section">
     <h2>Tanıtım Videosu</h2>
     <div class="video-container">
-      <iframe src="tanitimvideo.mp4" title="Köy Tanıtımı" allowfullscreen></iframe>
-    </div>
-
-    <h2>Köyün Konumu</h2>
-    <div class="map-container">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.6278735644366!2d32.4110414152496!3d39.94893787941708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d34c65a8abf21b%3A0x2e9e6d5ec7b7c7bb!2sTürkobası%2C%2006930%20Sincan%2FAnkara!5e0!3m2!1str!2str!4v1718389700000!5m2!1str!2str" 
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+      <video controls>
+        <source src="tanitimvideo.mp4" type="video/mp4" />
+        Tarayıcınız video etiketini desteklemiyor.
+      </video>
     </div>
   </div>
+</main>
 
-  <footer>
-    <p>© 2025 Türkobası Köyü</p>
-  </footer>
+<footer>
+  <p>© 2025 Türkobası Köyü</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("show");
+
+    // Menü açıldığında body kaydırmayı engelle (isteğe bağlı)
+    if(sidebar.classList.contains("show")) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }
+</script>
 
 </body>
 </html>
