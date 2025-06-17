@@ -12,8 +12,14 @@
       color: #2e3a33;
       text-align: center;
       padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
     }
-    .page-title {
+    header {
+      width: 100%;
       background: linear-gradient(90deg, #2e7d32, #66bb6a);
       color: #fafafa;
       padding: 28px 15px;
@@ -24,10 +30,11 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.25);
       margin-bottom: 30px;
       font-family: 'Segoe UI Black', 'Segoe UI', sans-serif;
+      user-select: none;
     }
     .map-container {
+      width: 100%;
       max-width: 900px;
-      margin: 0 auto;
       aspect-ratio: 16 / 9;
       border-radius: 12px;
       overflow: hidden;
@@ -38,21 +45,26 @@
       width: 100%;
       height: 100%;
       border: 0;
+      display: block;
     }
     a.back-link {
-      display: inline-block;
       margin-top: 30px;
-      padding: 12px 20px;
+      padding: 12px 24px;
       background-color: #2e7d32;
       color: #fafafa;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
       border-radius: 8px;
       box-shadow: 0 3px 7px rgba(0,0,0,0.3);
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      display: inline-block;
     }
-    a.back-link:hover {
+    a.back-link:hover,
+    a.back-link:focus {
       background-color: #388e3c;
+      box-shadow: 0 5px 14px rgba(56, 142, 60, 0.7);
+      outline: none;
     }
 
     /* Mobil uyumlu ayarlar */
@@ -60,14 +72,14 @@
       body {
         padding: 15px 10px;
       }
-      .page-title {
+      header {
         font-size: 2rem;
         padding: 20px 12px;
         margin-bottom: 20px;
       }
       .map-container {
         max-width: 100%;
-        aspect-ratio: 4 / 3; /* mobilde biraz daha kısa yüksekliği tercih ettim */
+        aspect-ratio: 4 / 3;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(46, 125, 50, 0.25);
       }
@@ -79,7 +91,7 @@
     }
 
     @media (max-width: 400px) {
-      .page-title {
+      header {
         font-size: 1.6rem;
         padding: 16px 10px;
       }
@@ -93,16 +105,19 @@
 </head>
 <body>
 
-  <div class="page-title">Köy Konumu</div>
+  <header>Köy Konumu</header>
 
   <div class="map-container">
     <iframe 
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3045.1745112524543!2d32.48571251513434!3d39.97815587943441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3486e78fa0eab%3A0xb1f30e93bc6a0683!2sTürkobası%2C%20Sincan%2C%20Ankara!5e0!3m2!1str!2str!4v1683456789012!5m2!1str!2str" 
-      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+      allowfullscreen 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Türkobası Köyü Konumu - Google Haritalar"
+    ></iframe>
   </div>
 
-  <a href="koy.html" class="back-link">Ana Sayfaya Dön</a>
+  <a href="koy.html" class="back-link" aria-label="Ana Sayfaya Dön">Ana Sayfaya Dön</a>
 
 </body>
 </html>
