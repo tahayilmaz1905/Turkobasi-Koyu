@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Türkobası Köyü - İstatistikler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d0f0c0, #a6d785);
+      color: #2e7d32;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #27632a;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(46, 125, 50, 0.15);
+      padding: 20px;
+      flex: 1 1 45%;
+      max-height: 400px;
+      overflow-y: auto;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+    ul {
+      list-style: none;
+      padding-left: 15px;
+      margin: 0;
+      color: #3a5d34;
+      font-size: 1rem;
+    }
+    ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #4caf50;
+      font-weight: bold;
+      font-size: 1.3rem;
+      line-height: 1;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    canvas {
+      flex-grow: 1;
+      max-width: 100%;
+      background: #f0f9e8;
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(46,125,50,0.1);
+    }
+    .info-message {
+      margin-top: 25px;
+      background-color: #e6f2e6;
+      border-left: 6px solid #4caf50;
+      border-radius: 8px;
+      padding: 15px 20px;
+      color: #2f5d2f;
+      text-align: center;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(46, 125, 50, 0.15);
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Responsive */
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column;
+      }
+      section {
+        max-height: none;
+        flex-basis: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Türkobası Köyü İstatistikleri</h2>
+  <div class="container">
+    <section>
+      <ul>
+        <li>Toplam Nüfus: 1,250</li>
+        <li>Erkek Nüfusu: 620</li>
+        <li>Kadın Nüfusu: 630</li>
+        <li>Çalışan Sayısı: 580</li>
+        <li>Emekli Sayısı: 150</li>
+        <li>Ortalama Yaş: 38.7</li>
+        <li>Genç Nüfus (18-35): %30</li>
+        <li>Okur-Yazar Oranı: %98</li>
+      </ul>
+    </section>
+    <section>
+      <canvas id="istatistikGrafik" aria-label="Nüfus Yaş Dağılımı Grafik" role="img"></canvas>
+    </section>
+  </div>
+
+  <div class="info-message">
+    <p>Not: Bu veriler son 5 yıl içindeki nüfus ve yaş dağılımı bilgilerini göstermektedir.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('istatistikGrafik').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['0-17', '18-35', '36-55', '56-75', '75+'],
+        datasets: [{
+          label: 'Kişi Sayısı',
+          data: [300, 375, 320, 180, 75],
+          backgroundColor: ['#a5d6a7', '#81c784', '#66bb6a', '#4caf50', '#388e3c'],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 1.2,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 50,
+              color: '#2e7d32',
+              font: { size: 13, weight: '600' }
+            },
+            grid: {
+              color: '#c8e6c9'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#2e7d32',
+              font: { size: 13, weight: '600' }
+            },
+            grid: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#4caf50',
+            titleFont: { weight: '700' },
+            bodyFont: { weight: '500' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
