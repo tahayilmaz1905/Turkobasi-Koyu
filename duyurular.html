@@ -2,261 +2,323 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Türkobası Köyü - Duyurular</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    /* Genel ayarlar */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right bottom, #c8f1e0, #d0f4f5);
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 15px 80px;
+      color: #2c3e50;
     }
 
     .container {
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      max-width: 900px;
+      width: 100%;
+      padding: 30px 40px 50px;
+      box-sizing: border-box;
     }
 
     h1 {
       text-align: center;
-      color: #1b5e20;
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      color: #2e7d32;
+      font-weight: 700;
+      margin-bottom: 35px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
     }
 
-    .form {
-      background: #ffffffee;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
-    }
-
-    .form input, .form textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    .form button {
-      background: #43a047;
-      color: white;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s;
-      width: 100%;
-    }
-
-    .form button:hover {
-      background: #2e7d32;
-    }
-
+    /* Duyuru listesi grid */
     .duyuru-listesi {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 24px;
+      margin-bottom: 35px;
     }
 
+    /* Her bir duyuru kartı */
     .duyuru {
-      background: #fff;
-      border-left: 6px solid #388e3c;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease;
-      position: relative;
+      background: #fefefe;
+      border-left: 6px solid #2e7d32;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(46,125,50,0.15);
       cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
     }
-
     .duyuru:hover {
-      transform: scale(1.015);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(46,125,50,0.3);
     }
 
     .duyuru h3 {
-      font-size: 1.1rem;
-      color: #2e7d32;
-      margin: 0 0 10px;
+      margin: 0 0 12px 0;
+      font-size: 20px;
+      color: #1b4332;
+      letter-spacing: 0.02em;
     }
 
     .duyuru p {
-      font-size: 0.95rem;
-      color: #444;
-      margin: 0 0 10px;
+      flex-grow: 1;
+      margin: 0 0 14px 0;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.4;
     }
 
     .duyuru .tarih {
-      font-size: 0.85rem;
+      font-size: 13px;
       color: #888;
+      font-style: italic;
+      align-self: flex-end;
     }
 
-    .actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    /* Form bölümü */
+    .form {
+      background: #f9f9f9;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px 20px;
+      justify-content: center;
     }
 
-    .actions button {
-      background: none;
+    .form input[type="text"],
+    .form textarea,
+    .form input[type="date"] {
+      flex: 1 1 250px;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: 2px solid #ccc;
+      border-radius: 7px;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+      font-family: 'Poppins', sans-serif;
+      outline-offset: 2px;
+    }
+    .form input[type="text"]:focus,
+    .form textarea:focus,
+    .form input[type="date"]:focus {
+      border-color: #2e7d32;
+    }
+    .form textarea {
+      min-height: 70px;
+    }
+
+    .form button {
+      background-color: #2e7d32;
+      color: white;
       border: none;
-      color: #2e7d32;
-      font-size: 1rem;
+      border-radius: 7px;
+      padding: 11px 26px;
+      font-weight: 600;
       cursor: pointer;
-      margin-left: 8px;
-      transition: color 0.2s;
+      transition: background-color 0.3s ease;
+      flex: 1 1 100px;
+      max-width: 150px;
+    }
+    .form button:hover {
+      background-color: #276029;
     }
 
-    .actions button:hover {
-      color: #c62828;
+    /* Bilgi mesajı */
+    #bilgiMesaji {
+      margin-top: 30px;
+      padding: 15px 22px;
+      background-color: #e6f4ea;
+      border: 1.5px solid #2e7d32;
+      border-radius: 10px;
+      color: #276029;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      user-select: none;
+      box-shadow: 0 4px 12px rgba(46,125,50,0.12);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .form button {
-        font-size: 1rem;
-      }
-
-      .duyuru h3 {
-        font-size: 1rem;
-      }
-
-      .duyuru p {
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 480px) {
+    /* Responsive */
+    @media (max-width: 720px) {
       .container {
-        padding: 10px;
+        padding: 25px 25px 45px;
       }
-
       h1 {
-        font-size: 1.6rem;
+        font-size: 28px;
       }
-
+      .duyuru-listesi {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .form {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .form input[type="text"],
+      .form textarea,
+      .form input[type="date"],
       .form button {
-        font-size: 0.95rem;
+        max-width: 100%;
+        flex: 1 1 auto;
       }
     }
 
-    /* Yeni eklenen küçük ekranlar için */
-    @media (max-width: 400px) {
-      .form input, .form textarea {
-        font-size: 0.9rem;
-        padding: 10px;
+    @media (max-width: 420px) {
+      body {
+        padding: 20px 10px 80px;
       }
-      .form button {
-        font-size: 0.9rem;
-        padding: 10px;
+      h1 {
+        font-size: 24px;
+      }
+      .duyuru-listesi {
+        grid-template-columns: 1fr;
+      }
+      .duyuru {
+        min-height: auto;
+      }
+      #bilgiMesaji {
+        font-size: 14px;
+        padding: 12px 15px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📢 Köy Duyuruları</h1>
 
-    <div class="form">
-      <input type="text" id="baslik" placeholder="Duyuru Başlığı">
-      <textarea id="icerik" placeholder="Duyuru İçeriği"></textarea>
-      <input type="date" id="tarih">
-      <button onclick="duyuruEkleVeyaGuncelle()">Duyuru Ekle</button>
+  <div class="container">
+
+    <h1>Güncel Duyurular</h1>
+
+    <div class="duyuru-listesi" id="duyuruListesi">
+      <!-- Duyurular JS ile buraya gelecek -->
     </div>
 
-    <div class="duyuru-listesi" id="duyuruListesi"></div>
+    <div id="bilgiMesaji">Duyuruları güncellemek için lütfen bir duyurunun üzerine tıklayın.</div>
+
+    <form class="form" id="duyuruForm" autocomplete="off">
+      <input type="hidden" id="duyuruIndex" value="">
+      <input type="text" id="baslik" placeholder="Duyuru Başlığı" required />
+      <textarea id="icerik" placeholder="Duyuru İçeriği" required></textarea>
+      <input type="date" id="tarih" required />
+      <button type="submit" id="ekleGuncelleBtn">Duyuru Ekle</button>
+    </form>
+
   </div>
 
-  <script>
-    let duyurular = [
-      { baslik: "🎉 Bayramlaşma Etkinliği", icerik: "Bayram namazı sonrası köy meydanında bayramlaşma olacaktır.", tarih: "2025-06-18" },
-      { baslik: "💡 Elektrik Kesintisi", icerik: "20 Haziran 2025'te 09:00-14:00 arası kesinti yapılacak.", tarih: "2025-06-17" },
-      { baslik: "🎒 Okul Etkinliği", icerik: "24 Haziran'da okul bahçesinde yıl sonu şenliği yapılacaktır.", tarih: "2025-06-14" }
-    ];
+<script>
+  // Duyurular dizisi (başlangıç örnekleri)
+  let duyurular = [
+    { baslik: "Bayramlaşma Etkinliği", icerik: "Bayram namazı sonrası köy meydanında toplu bayramlaşma yapılacaktır.", tarih: "2025-06-18" },
+    { baslik: "Elektrik Kesintisi", icerik: "20 Haziran 2025 tarihinde 09:00 - 14:00 saatleri arasında planlı kesinti olacaktır.", tarih: "2025-06-20" },
+    { baslik: "Yayla Pikniği", icerik: "27 Haziran'da köy gençliği piknik düzenliyor. Katılım ücretsizdir.", tarih: "2025-06-27" },
+    { baslik: "Yeni Yol Çalışması", icerik: "Köy girişindeki yol çalışmaları 5 Temmuz'da başlayacaktır.", tarih: "2025-07-05" },
+    { baslik: "Su Kesintisi", icerik: "8 Temmuz 2025 tarihinde su kesintisi olacaktır.", tarih: "2025-07-08" },
+  ];
 
-    let guncellemeModu = false;
-    let seciliDuyuruIndex = null;
+  const duyuruListesi = document.getElementById('duyuruListesi');
+  const bilgiMesaji = document.getElementById('bilgiMesaji');
+  const duyuruForm = document.getElementById('duyuruForm');
+  const baslikInput = document.getElementById('baslik');
+  const icerikInput = document.getElementById('icerik');
+  const tarihInput = document.getElementById('tarih');
+  const duyuruIndexInput = document.getElementById('duyuruIndex');
+  const ekleGuncelleBtn = document.getElementById('ekleGuncelleBtn');
 
-    function duyuruEkleVeyaGuncelle() {
-      const baslik = document.getElementById("baslik").value.trim();
-      const icerik = document.getElementById("icerik").value.trim();
-      const tarih = document.getElementById("tarih").value;
+  // Tarih formatını "18 Haziran 2025" gibi göster
+  function tarihFormatla(tarihStr) {
+    const aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    let dt = new Date(tarihStr);
+    if (isNaN(dt)) return tarihStr;
+    return dt.getDate() + " " + aylar[dt.getMonth()] + " " + dt.getFullYear();
+  }
 
-      if (!baslik || !icerik || !tarih) {
-        alert("Lütfen tüm alanları doldurun.");
-        return;
-      }
+  // Duyuruları tarihine göre büyükten küçüğe sıralama
+  function duyurulariSirala() {
+    duyurular.sort((a, b) => new Date(b.tarih) - new Date(a.tarih));
+  }
 
-      if (guncellemeModu && seciliDuyuruIndex !== null) {
-        duyurular[seciliDuyuruIndex] = { baslik, icerik, tarih };
-        guncellemeModu = false;
-        seciliDuyuruIndex = null;
-        document.querySelector(".form button").innerText = "Duyuru Ekle";
-      } else {
-        duyurular.push({ baslik, icerik, tarih });
-      }
+  // Duyuruları listeye bas
+  function listele() {
+    duyuruListesi.innerHTML = "";
+    duyurulariSirala();
+    duyurular.forEach((d, i) => {
+      let div = document.createElement('div');
+      div.className = "duyuru";
+      div.innerHTML = `
+        <h3>${d.baslik}</h3>
+        <p>${d.icerik}</p>
+        <div class="tarih">${tarihFormatla(d.tarih)}</div>
+      `;
+      div.addEventListener('click', () => duyuruDuzenle(i));
+      duyuruListesi.appendChild(div);
+    });
+  }
 
-      document.getElementById("baslik").value = "";
-      document.getElementById("icerik").value = "";
-      document.getElementById("tarih").value = "";
-      siralaVeGoster();
+  // Duyuruyu düzenlemek için forma verileri yükle
+  function duyuruDuzenle(index) {
+    const d = duyurular[index];
+    baslikInput.value = d.baslik;
+    icerikInput.value = d.icerik;
+    tarihInput.value = d.tarih;
+    duyuruIndexInput.value = index;
+    ekleGuncelleBtn.textContent = "Duyuruyu Güncelle";
+    bilgiMesaji.textContent = "Duyuru düzenleme modunda. Güncellemek için formu doldurun ve butona basın.";
+  }
+
+  // Form temizleme
+  function formTemizle() {
+    baslikInput.value = "";
+    icerikInput.value = "";
+    tarihInput.value = "";
+    duyuruIndexInput.value = "";
+    ekleGuncelleBtn.textContent = "Duyuru Ekle";
+    bilgiMesaji.textContent = "Duyuruları güncellemek için lütfen bir duyurunun üzerine tıklayın.";
+  }
+
+  // Form submit
+  duyuruForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const baslik = baslikInput.value.trim();
+    const icerik = icerikInput.value.trim();
+    const tarih = tarihInput.value;
+
+    if (!baslik || !icerik || !tarih) {
+      alert("Lütfen tüm alanları doldurun.");
+      return;
     }
 
-    function duyuruSil(index) {
-      if (confirm("Bu duyuruyu silmek istiyor musunuz?")) {
-        duyurular.splice(index, 1);
-        siralaVeGoster();
-      }
+    const idx = duyuruIndexInput.value;
+    if (idx === "") {
+      // Yeni duyuru ekle
+      duyurular.push({ baslik, icerik, tarih });
+    } else {
+      // Var olanı güncelle
+      duyurular[idx] = { baslik, icerik, tarih };
     }
 
-    function siralaVeGoster() {
-      const container = document.getElementById("duyuruListesi");
-      duyurular.sort((a, b) => new Date(b.tarih) - new Date(a.tarih));
-      container.innerHTML = "";
+    formTemizle();
+    listele();
+  });
 
-      duyurular.forEach((d, i) => {
-        const duyuru = document.createElement("div");
-        duyuru.className = "duyuru";
-        duyuru.onclick = () => duyuruSec(i);
-        duyuru.innerHTML = `
-          <div class="actions">
-            <button onclick="event.stopPropagation(); duyuruSil(${i})">❌</button>
-          </div>
-          <h3>${d.baslik}</h3>
-          <p>${d.icerik}</p>
-          <div class="tarih">📅 ${d.tarih}</div>
-        `;
-        container.appendChild(duyuru);
-      });
-    }
+  // İlk listeleme
+  listele();
+</script>
 
-    function duyuruSec(index) {
-      const duyuru = duyurular[index];
-      document.getElementById("baslik").value = duyuru.baslik;
-      document.getElementById("icerik").value = duyuru.icerik;
-      document.getElementById("tarih").value = duyuru.tarih;
-
-      guncellemeModu = true;
-      seciliDuyuruIndex = index;
-      document.querySelector(".form button").innerText = "Güncelle";
-    }
-
-    siralaVeGoster();
-  </script>
 </body>
 </html>
