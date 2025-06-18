@@ -6,6 +6,10 @@
   <title>Türkobası Köyü - Muhtar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #e8f5e9, #f1f8e9);
@@ -80,11 +84,18 @@
 
     input, textarea {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 14px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 1em;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
 
     button[type="submit"], .edit-btn, .delete-btn {
@@ -95,7 +106,6 @@
       border-radius: 6px;
       font-size: 1em;
       cursor: pointer;
-      margin-right: 10px;
     }
 
     .edit-btn {
@@ -138,7 +148,7 @@
       }
 
       h1 {
-        font-size: 1.5em;
+        font-size: 1.6em;
       }
 
       h2 {
@@ -151,6 +161,20 @@
 
       .contact-info {
         font-size: 0.95em;
+      }
+
+      input, textarea {
+        font-size: 0.95em;
+      }
+
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        align-items: stretch;
       }
     }
   </style>
@@ -183,8 +207,10 @@
       <p><strong>Ad:</strong> <span id="gonderenAd"></span></p>
       <p><strong>E-posta:</strong> <span id="gonderenEmail"></span></p>
       <p><strong>Mesaj:</strong> <span id="gonderilenMesaj"></span></p>
-      <button class="edit-btn" onclick="duzenleMesaj()">Düzenle</button>
-      <button class="delete-btn" onclick="silMesaj()">Sil</button>
+      <div class="button-group">
+        <button class="edit-btn" onclick="duzenleMesaj()">Düzenle</button>
+        <button class="delete-btn" onclick="silMesaj()">Sil</button>
+      </div>
     </div>
   </div>
 
